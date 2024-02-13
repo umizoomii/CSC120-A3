@@ -1,3 +1,4 @@
+//import things for java
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,82 +25,74 @@ public class Conversation {
         //initialize random class
         Random rnd = new Random();
 
-        //list of responses
-        String responses[] = {"That sounds kind of toxic", "That's embarrasing", "You should seek help", "Oh...", "Are you sure about that?", "Rethink this."};
+        //list of (toxic) responses
+        String responses[] = {"That sounds kind of toxic", "That's embarrasing", "You should seek help", "Oh...", "Are you sure about that?", "Rethink this.", "You're the problem.", "You're crazy.", "Are you making this up?"};
         List <String> resp = Arrays.asList(responses);
-        
-        //set up empty list for transcript
-        //String transcript[] = {"The transcript", "another sentence"};
-        //List <String> tr = Arrays.asList(transcript);
+        //ask about the difference between these two methods of creating a list
+        List<String> transcript = new ArrayList<String>(); //ask about this
 
-        List<String> transcript = new ArrayList<String>();
         while (counter < rounds) { //while the conversation is still going:
             counter = counter + 1;
             // Get user's statement / input
             String userInput = sc.nextLine(); 
             transcript.add(userInput);
 
-            
-            //System.out.println(tr);
+            //split string to fix mirroring
+            String[] words = userInput.split("\\s+");
+            boolean keyword = false;
+            //for loop that loops through each word in user input
+            String response = "";
+            for(String word: words) {
+                if (word.equals("I")) {
+                word = "You";
+                keyword = true;
+            }
+            else if (word.equals("me")) {
+                word = "you";
+                keyword = true;
+            }
+            else if (word.equals("am")) {
+                word = "are";
+                keyword = true;
+            }
+            else if (word.equals("are")) {
+              word = "am";
+              keyword = true;
+            }
+            else if (word.equals("you")) {
+              word = "I";
+              keyword = true;
+            }
+            else if (word.equals("my")) {
+              word = "your";
+              keyword = true;
+            }
+            else if (word.equals("your")) {
+              word = "my";
+              keyword = true;
+            }
+           
+            response += " " + word;
+          } //end for loop
 
-            // Respond to question
-            if (userInput.contains("?")) {
-                String compresponse = resp.get(rnd.nextInt(5));
-                System.out.println(compresponse);
-                transcript.add(compresponse);
-            }
-            // Respond to statement
-            else { //if it does not contain a question mark:
-              if (userInput.contains("I")|
-              userInput.contains("me") |
-              userInput.contains("am") |
-              userInput.contains("you") |
-              userInput.contains("my") |
-              userInput.contains("your") 
-              ) {
-                if (userInput.contains("I")) {
-                  String compresponse = userInput.replace("I", "You") + "?";
-                  System.out.println(compresponse);
-                  transcript.add(compresponse);
-            }
-                if (userInput.contains("me")) {
-                  String compresponse = userInput.replace("me", "you") + "?";
-                  System.out.println(compresponse);
-                  transcript.add(compresponse);
-            }
-                if (userInput.contains("am")) {
-                  String compresponse = userInput.replace("am", "are") + "?";
-                  System.out.println(compresponse);
-                  transcript.add(compresponse);
-            }
-                if (userInput.contains("you")) {
-                  String compresponse = userInput.replace("you", "I") + "?";
-                  System.out.println(compresponse);
-                  transcript.add(compresponse);
-            }
-                if (userInput.contains("my")) {
-                  String compresponse = userInput.replace("my", "your") + "?";
-                  System.out.println(compresponse);
-                  transcript.add(compresponse);
-            }
-                if (userInput.contains("your")) {
-                  String compresponse = userInput.replace("your", "my") + "?";
-                  System.out.println(compresponse);
-                  transcript.add(compresponse);
-            }    
-            }
-            else { //semicolon tells program statement is over
-              String compresponse = resp.get(rnd.nextInt(5));
+            if (keyword){
+              String compresponse = String.join(" ", response).strip(); 
+              if (!userInput.contains("?")) {
+                compresponse += "?"; 
+              }
               System.out.println(compresponse);
               transcript.add(compresponse);
             }
-         }
-         
-         
-
-        }
-        
+            else {
+              String compresponse = resp.get(rnd.nextInt(8));
+              System.out.println(compresponse);
+              transcript.add(compresponse);
+          }
+            
+        } //end of while loop
+           
         System.out.println("Goodbye!");
+        transcript.add("Goodbye!");
 
         //print transcript line by line
         System.out.println(" ");
@@ -112,3 +105,4 @@ public class Conversation {
 
     }
 }
+
