@@ -8,8 +8,7 @@ import java.util.Random;
 //define class
 public class Conversation {
     public static void main(String[] args) {
-        
-
+      
         Scanner sc = new Scanner(System.in);
         
         //print first message
@@ -19,7 +18,8 @@ public class Conversation {
         //clear input
         sc.nextLine();
         //ask user for input
-        System.out.println("Okay. What's on your mind?");
+        String welcome = "What's on your mind?";
+        System.out.println(welcome);
         
         int counter = 0;
         //initialize random class
@@ -29,7 +29,8 @@ public class Conversation {
         String responses[] = {"That sounds kind of toxic", "That's embarrasing", "You should seek help", "Oh...", "Are you sure about that?", "Rethink this.", "You're the problem.", "You're crazy.", "Are you making this up?"};
         List <String> resp = Arrays.asList(responses);
         //ask about the difference between these two methods of creating a list
-        List<String> transcript = new ArrayList<String>(); //ask about this
+        List<String> transcript = new ArrayList<String>(); 
+        transcript.add(welcome);
 
         while (counter < rounds) { //while the conversation is still going:
             counter = counter + 1;
@@ -39,43 +40,44 @@ public class Conversation {
 
             //split string to fix mirroring
             String[] words = userInput.split("\\s+");
+            //set keyword to false
             boolean keyword = false;
             //for loop that loops through each word in user input
             String response = "";
             for(String word: words) {
                 if (word.equals("I")) {
-                word = "You";
-                keyword = true;
+                  word = "You";
+                  keyword = true;
             }
-            else if (word.equals("me")) {
-                word = "you";
-                keyword = true;
+                else if (word.equals("me")) {
+                  word = "you";
+                  keyword = true;
             }
-            else if (word.equals("am")) {
-                word = "are";
-                keyword = true;
+                else if (word.equals("am")) {
+                  word = "are";
+                  keyword = true;
             }
-            else if (word.equals("are")) {
-              word = "am";
-              keyword = true;
+                else if (word.equals("are")) {
+                  word = "am";
+                  keyword = true;
             }
-            else if (word.equals("you")) {
-              word = "I";
-              keyword = true;
+                else if (word.equals("you")) {
+                  word = "I";
+                  keyword = true;
             }
-            else if (word.equals("my")) {
-              word = "your";
-              keyword = true;
+                else if (word.equals("my")) {
+                  word = "your";
+                  keyword = true;
             }
-            else if (word.equals("your")) {
-              word = "my";
-              keyword = true;
+                else if (word.equals("your")) {
+                  word = "my";
+                  keyword = true;
             }
            
             response += " " + word;
           } //end for loop
 
-            if (keyword){
+            if (keyword) { //if input has keyword
               String compresponse = String.join(" ", response).strip(); 
               if (!userInput.contains("?")) {
                 compresponse += "?"; 
@@ -102,7 +104,6 @@ public class Conversation {
         }
         //System.out.println(transcript);
         sc.close();
-
     }
 }
 
